@@ -3,7 +3,7 @@ pragma solidity 0.6.12;
 
 import "../SodaVault.sol";
 
-// Don't need to be owned.
+// Owned by Timelock
 contract WETHVault is SodaVault {
 
     constructor (

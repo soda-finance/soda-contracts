@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: WTFPL
 pragma solidity 0.6.12;
 
-import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -18,6 +17,7 @@ contract ShareRevenue is IStrategy, Ownable {
     uint256 constant PER_SHARE_SIZE = 1e12;
 
     SodaMaster public sodaMaster;
+
     IERC20 public lpToken;
 
     mapping(address => uint256) private valuePerShare;  // By vault.

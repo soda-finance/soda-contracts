@@ -5,10 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "../tokens/SodaToken.sol";
 import "../tokens/SodaVault.sol";
-import "../strategies/IStrategy.sol";
-
 
 // This contract is owned by Timelock.
 contract SodaPool is Ownable {
