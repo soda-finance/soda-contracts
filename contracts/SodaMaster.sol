@@ -14,9 +14,11 @@ Keys themselves are immutable. Addresses can be immutable or mutable.
 a) Vault addresses are immutable once set, and the list may grow:
 
 K_VAULT_WETH = 0;
-K_VAULT_USDT_ETH_LP = 1;
-K_VAULT_SOETH_ETH_LP = 2;
-K_VAULT_SODA_ETH_LP = 3;
+K_VAULT_USDT_ETH_SUSHI_LP = 1;
+K_VAULT_SOETH_ETH_UNI_V2_LP = 2;
+K_VAULT_SODA_ETH_UNI_V2_LP = 3;
+K_VAULT_GT = 4;
+K_VAULT_GT_ETH_UNI_V2_LP = 5;
 
 
 b) SodaMade token addresses are immutable once set, and the list may grow:

@@ -10,7 +10,7 @@ contract SODAETHLPVault is SodaVault {
         SodaMaster _sodaMaster,
         IStrategy _createSoda,
         IStrategy _shareRevenue
-    ) SodaVault(_sodaMaster, "Soda SODA-ETH-LP Vault", "vSODA-ETH-LP") public  {
+    ) SodaVault(_sodaMaster, "Soda SODA-ETH-UNI-V2-LP Vault", "vSODA-ETH-UNI-V2-LP") public  {
         IStrategy[] memory strategies = new IStrategy[](2);
         strategies[0] = _createSoda;
         strategies[1] = _shareRevenue;

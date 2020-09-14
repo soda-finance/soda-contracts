@@ -10,7 +10,7 @@ contract USDTETHLPVault is SodaVault {
         SodaMaster _sodaMaster,
         IStrategy _eatSushi,
         IStrategy _createSoda
-    ) SodaVault(_sodaMaster, "Soda USDT-ETH-LP Vault", "vUSDT-ETH-LP") public  {
+    ) SodaVault(_sodaMaster, "Soda USDT-ETH-SUSHI-LP Vault", "vUSDT-ETH-SUSHI-LP") public  {
         IStrategy[] memory strategies = new IStrategy[](2);
         strategies[0] = _eatSushi;
         strategies[1] = _createSoda;
