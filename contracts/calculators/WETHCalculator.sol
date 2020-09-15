@@ -87,9 +87,6 @@ contract WETHCalculator is Ownable, ICalculator {
     function getLoanInterest(uint256 _loanId) public view override returns (uint256) {
         uint256 principal = loanInfo[_loanId].amount;
         uint256 durationByDays = now.sub(loanInfo[_loanId].time) / (1 days) + 1;
-        if (durationByDays == 0) {
-            return 0;
-        }
 
         uint256 interest = loanInfo[_loanId].amount.mul(loanInfo[_loanId].rate).div(RATE_BASE).mul(durationByDays);
         uint256 lockedAmount = loanInfo[_loanId].lockedAmount;
