@@ -2,7 +2,7 @@
 
 https://soda.finance. Feel free to read the code.
 
-Additional unit tests will be added tomorrow.
+More test code is on the road.
 
 ## License
 

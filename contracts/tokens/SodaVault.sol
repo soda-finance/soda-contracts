@@ -53,7 +53,7 @@ contract SodaVault is ERC20, Ownable {
         require(_msgSender() == sodaMaster.pool(), "not pool");
 
         uint256 balance = balanceOf(_account);
-        require(lockedAmount[_account] + _amount <= balance);
+        require(lockedAmount[_account] + _amount <= balance, "Vault: burn too much");
 
         _withdraw(_amount);
         _updateReward(_account);
@@ -95,7 +95,7 @@ contract SodaVault is ERC20, Ownable {
         require(_msgSender() == sodaMaster.bank(), "not bank");
 
         uint256 balance = balanceOf(_account);
-        require(lockedAmount[_account] + _amount <= balance);
+        require(lockedAmount[_account] + _amount <= balance, "Vault: lock too much");
         lockedAmount[_account] += _amount;
     }
 
@@ -103,7 +103,7 @@ contract SodaVault is ERC20, Ownable {
     function unlockByBank(address _account, uint256 _amount) public {
         require(_msgSender() == sodaMaster.bank(), "not bank");
 
-        require(_amount <= lockedAmount[_account]);
+        require(_amount <= lockedAmount[_account], "Vault: unlock too much");
         lockedAmount[_account] -= _amount;
     }
 

@@ -80,11 +80,6 @@ contract CreateSoda is IStrategy, Ownable {
 
         vaultMap[_poolId] = _vault;
 
-        if (poolMap[_vault].allocPoint == 0) {
-            uint256 lastRewardBlock = block.number > startBlock ? block.number : startBlock;
-            poolMap[_vault].lastRewardBlock = lastRewardBlock;
-        }
-
         totalAllocPoint = totalAllocPoint.sub(poolMap[_vault].allocPoint).add(_allocPoint);
         poolMap[_vault].allocPoint = _allocPoint;
 
@@ -150,6 +145,11 @@ contract CreateSoda is IStrategy, Ownable {
             return;
         }
 
+        if (pool.lastRewardBlock == 0) {
+                // This is the first time that we start counting blocks.
+            pool.lastRewardBlock = block.number;
+        }
+
         if (block.number <= pool.lastRewardBlock) {
             return;
         }
@@ -160,15 +160,11 @@ contract CreateSoda is IStrategy, Ownable {
             return;
         }
 
-        if (pool.lastRewardBlock == 0) {
-            // This is the first time that we start counting blocks.
-            pool.lastRewardBlock = block.number;
-        }
-
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 allReward = multiplier.mul(SODA_PER_BLOCK).mul(pool.allocPoint).div(totalAllocPoint);
         SodaToken(sodaMaster.soda()).mint(sodaMaster.dev(), allReward.div(20));  // 5% goes to dev.
         uint256 farmerReward = allReward.sub(allReward.div(20));
+
         SodaToken(sodaMaster.soda()).mint(address(this), farmerReward);  // 95% goes to farmers.
 
         valuePerShare[_vault] = valuePerShare[_vault].add(farmerReward.mul(PER_SHARE_SIZE).div(shareAmount));

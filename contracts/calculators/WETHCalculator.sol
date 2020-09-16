@@ -49,7 +49,7 @@ contract WETHCalculator is Ownable, ICalculator {
     // Change the bank's interest rate and LTVs.
     // Can only be called by the owner.
     // The change should only affect loans made after it.
-    function changRateAndLTV(uint256 _rate, uint256 _minimumLTV, uint256 _maximumLTV) public onlyOwner {
+    function changeRateAndLTV(uint256 _rate, uint256 _minimumLTV, uint256 _maximumLTV) public onlyOwner {
         require(_rate <= RATE_BASE, "_rate <= RATE_BASE");
         require(_minimumLTV + 5 <= _maximumLTV, "+ 5 <= _maximumLTV");
         require(_minimumLTV >= 10, ">= 10");
