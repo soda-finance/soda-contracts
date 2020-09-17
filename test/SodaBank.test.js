@@ -78,7 +78,7 @@ contract('SodaBank', ([alice, bob, carol]) => {
         await this.pool.claim(0, { from: bob });  // Block 1
         var balanceOfSoda = await this.soda.balanceOf(bob);
         // 95% is for farmers, 5% goes to the dev pool.
-        assert.equal(balanceOfSoda.valueOf(), Math.floor(2000 * 1e18 * 0.95));
+        assert.equal(balanceOfSoda.valueOf(), Math.floor(2 * 1e18 * 0.95));
 
         // Mow borrow some SoETH. The user can borrow at most 770000
         await expectRevert(
@@ -101,7 +101,7 @@ contract('SodaBank', ([alice, bob, carol]) => {
         // He is still mining soda.
         balanceOfSoda = await this.soda.balanceOf(bob);
         // 95% is for farmers, 5% goes to the dev pool.
-        assert.equal(balanceOfSoda.valueOf(), Math.floor(7000 * 1e18 * 0.95));
+        assert.equal(balanceOfSoda.valueOf(), Math.floor(7 * 1e18 * 0.95));
 
         // Most of his WETH is locked now.
         await expectRevert(

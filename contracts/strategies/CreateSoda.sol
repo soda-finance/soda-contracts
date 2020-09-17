@@ -9,17 +9,21 @@ import "./IStrategy.sol";
 import "../SodaMaster.sol";
 
 // This contract has the power to change SODA allocation among
-// different pools, but can't mint more than 330,000,000 SODA tokens.
-// With ALL_BLOCKS_AMOUNT, BONUS_BLOCKS_AMOUNT, SODA_PER_BLOCK, and BONUS_MULTIPLIER,
-// we have 10,0000 * 100 * 10 + 230,0000 * 100 = 330,000,000
-// This contract is the only owner of SodaToken and is itself owned by Timelock.
+// different pools, but can't mint more than 100,000 SODA tokens.
+// With ALL_BLOCKS_AMOUNT and SODA_PER_BLOCK,
+// we have 100,000 * 1 = 100,000
+//
+// For the remaining 900,000 SODA, we will need to deploy a new contract called
+// CreateMoreSoda after the community can make a decision by voting.
+//
+// Currently this contract is the only owner of SodaToken and is itself owned by
+// Timelock, and it has a function transferToCreateMoreSoda to transfer the
+// ownership to CreateMoreSoda once all the 100,000 tokens are out.
 contract CreateSoda is IStrategy, Ownable {
     using SafeMath for uint256;
 
-    uint256 public constant ALL_BLOCKS_AMOUNT = 2400000;
-    uint256 public constant BONUS_BLOCKS_AMOUNT = 100000;
-    uint256 public constant SODA_PER_BLOCK = 100 * 1e18;
-    uint256 public constant BONUS_MULTIPLIER = 10;
+    uint256 public constant ALL_BLOCKS_AMOUNT = 100000;
+    uint256 public constant SODA_PER_BLOCK = 1 * 1e18;
 
     uint256 constant PER_SHARE_SIZE = 1e12;
 
@@ -43,10 +47,6 @@ contract CreateSoda is IStrategy, Ownable {
 
     // startBlock + ALL_BLOCKS_AMOUNT
     uint256 public endBlock;
-
-    // Block number when bonus SODA period ends.
-    // startBlock + BONUS_BLOCKS_AMOUNT
-    uint256 public bonusEndBlock;
 
     // The SODA Pool.
     SodaMaster public sodaMaster;
@@ -101,15 +101,7 @@ contract CreateSoda is IStrategy, Ownable {
             return 0;
         }
 
-        if (_to <= bonusEndBlock) {
-            return _to.sub(_from).mul(BONUS_MULTIPLIER);
-        } else if (_from >= bonusEndBlock) {
-            return _to.sub(_from);
-        } else {
-            return bonusEndBlock.sub(_from).mul(BONUS_MULTIPLIER).add(
-                _to.sub(bonusEndBlock)
-            );
-        }
+        return _to.sub(_from);
     }
 
     function getValuePerShare(address _vault) external view override returns(uint256) {
@@ -180,7 +172,6 @@ contract CreateSoda is IStrategy, Ownable {
         if (startBlock == 0) {
             startBlock = block.number;
             endBlock = startBlock + ALL_BLOCKS_AMOUNT;
-            bonusEndBlock = startBlock + BONUS_BLOCKS_AMOUNT;
         }
 
         _update(_vault);
@@ -209,5 +200,16 @@ contract CreateSoda is IStrategy, Ownable {
      */
     function getTargetToken() external view override returns(address) {
         return sodaMaster.soda();
+    }
+
+    // This only happens after all the 100,000 tokens are minted, and should
+    // be after the community can vote (I promise by then Timelock will
+    // be administrated by GovernorAlpha).
+    //
+    // Community (of the future), please make sure _createMoreSoda contract is
+    // safe enough to pull the trigger.
+    function transferToCreateMoreSoda(address _createMoreSoda) external onlyOwner {
+        require(block.number > endBlock);
+        SodaToken(sodaMaster.soda()).transferOwnership(_createMoreSoda);
     }
 }

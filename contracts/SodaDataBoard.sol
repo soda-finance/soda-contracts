@@ -50,12 +50,7 @@ contract SodaDataBoard is Ownable {
 
         uint256 vaultSupply = vault.totalSupply();
 
-        uint256 factor;
-        if (block.number < createSoda.bonusEndBlock()) {
-            factor = 1000;
-        } else {
-            factor = 100;
-        }
+        uint256 factor = 1;  // 1 SODA per block
 
         if (vaultSupply == 0) {
             // Assume $1 is put in.
