@@ -1,7 +1,8 @@
+# SodaFinance 🥤
+
 https://soda.finance. Feel free to read the code.
 
-
-More test code is on the road.	# Contract Addresses
+# Contract Addresses
 
 Tokens:
 SodaEthereum: [0x9f1d057d1140cb32653779c7719310D431D49861](https://etherscan.io/address/0x9f1d057d1140cb32653779c7719310D431D49861)
@@ -34,3 +35,7 @@ GTETHLPVault: [0xBb37Dac0dc97b05B3E1d44380Aa709f74B5e01E0](https://etherscan.io/
 
 Other:
 SodaDataBoard address: [0x81593Fb87f1B1EAADece70798A5240825aB451b2](https://etherscan.io/address/0x81593Fb87f1B1EAADece70798A5240825aB451b2)
+
+## License
+
+WTFPL
