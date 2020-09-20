@@ -4,6 +4,7 @@ https://soda.finance. Feel free to read the code.
 
 # Contract Addresses
 
+
 Tokens:
 
 - SodaEthereum [0x9f1d057d1140cb32653779c7719310D431D49861](https://etherscan.io/address/0x9f1d057d1140cb32653779c7719310D431D49861)
@@ -30,6 +31,7 @@ Components:
 Calculators:
 
 - WETHCalculator [0x164315AC326d7D4CAf71067F7b2DE45f95c03F8C](https://etherscan.io/address/0x164315AC326d7D4CAf71067F7b2DE45f95c03F8C)
+- WETHCalculatorFixed [0x87aA37BAE7c1F3E99e266fCcB7890faca08FB036](https://etherscan.io/address/0x87aA37BAE7c1F3E99e266fCcB7890faca08FB036)
 
 
 Strategies:
